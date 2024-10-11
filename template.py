@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 
 project_name = "defectTracer"
+#project_name = "defectTracer"
+
 
 list_of_files = [
 
