@@ -1,0 +1,32 @@
+Use proper indexes on columns used in JOIN, WHERE, and ORDER BY clauses. -
+Optimize Joins - Small table join with Large tables. so you need to pick small table first.
+Partitioning Large Tables	
+	-Range Partition
+	-List Partition
+Avoid using SELECT ; only select the columns you need.
+Avoid Subqueries in SELECT or WHERE Clauses
+Use EXISTS instead of IN for subqueries.
+Limit the use of DISTINCT unless necessary.
+Avoid using functions on indexed columns in the WHERE clause (e.g., avoid WHERE YEAR(date_column) = 2023).
+Use JOIN instead of subqueries where possible.
+Apply pagination with LIMIT for large datasets.
+Use partitioning for large tables.
+Avoid ORDER BY on large datasets unless needed, and index the column if used frequently.
+Use UNION ALL instead of UNION if duplicates are not a concern.
+Use aggregate functions such as COUNT, SUM, AVG, etc., instead of manual row processing.
+Use indexed columns in ORDER BY and GROUP BY statements to speed up sorting and grouping operations.
+Avoid using leading wildcards (%term), which can cause full table scans. Use trailing wildcards (term%) when possible.
+Perform batch operations instead of executing multiple single-row insert, update, or delete statements. This reduces the overhead on the database by minimizing transaction handling and locks.
+For complex queries with multiple joins or aggregations, using temporary tables can help break the query into smaller, manageable chunks. This can speed up the overall query execution by avoiding repeated calculations.
+Both DISTINCT and GROUP BY can be expensive, especially on large datasets. Only use them if absolutely necessary, and ensure that the columns in question are indexed.
+Window functions like ROW_NUMBER(), RANK(), and LAG() are powerful but can be slow on large datasets. Make sure your windowed data is properly indexed or reduce the dataset size beforehand.
+Use indexed or materialized views for aggregations on large datasets. Materialized views store the result set, making data retrieval faster.
+Use appropriate isolation levels (e.g., READ UNCOMMITTED or READ COMMITTED SNAPSHOT) if you can tolerate dirty reads. This can prevent locking and reduce transaction contention.
+If the same calculation is being repeated in multiple parts of a query, calculate it once and use it across the query. For example, store it in a variable or CTE (Common Table Expression).
+Ensure that the order in which filters (WHERE clauses) are applied is optimal. Start with conditions that filter the data the most (i.e., high selectivity) before other conditions.
+Make sure your database's statistics are up-to-date. Optimizers rely heavily on statistics to choose the best execution plan, so updating them regularly can lead to better performance
+Enable Parallel Execution For large datasets or complex queries, parallelizing the query can help distribute the load across multiple processors, improving execution time.
+Use WHERE clauses whenever possible instead of HAVING. HAVING filters rows after aggregation, while WHERE filters them before, which is more efficient.
+Avoid using NULL values in indexed columns whenever possible, as they can complicate the index structure. If you must handle NULL, use COALESCE to substitute with default values when appropriate.
+Check for redundant JOIN statements. If a table is being joined but its columns are not used in the result or filters, remove it from the query.
+Cursors in SQL are row-by-row operations that can be very slow. Where possible, avoid cursors and use set-based operations instead. These are optimized for performance by the database engine.
